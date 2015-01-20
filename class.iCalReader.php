@@ -56,9 +56,8 @@ class ICal
             return false;
         }
         
-        $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         $lines = explode("\n", $contents);
-        $lines = array_filter($lines)
+        $lines = array_filter($lines);
 
         if (stristr($lines[0], 'BEGIN:VCALENDAR') === false) {
             return false;
