@@ -302,25 +302,22 @@ class ICal
                     $recurring_timestamp = strtotime($offset,$recurring_timestamp);
                   }
                 } elseif (isset($rrules['BYDAY']) && $rrules['BYDAY'] != '') {
-                  //Rosterbot doesn't handle these events so don't add them to the event list
-
-                  
-                  // $start_time = date('His',$start_timestamp);
-                  // // Deal with BYDAY
-                  // $day_number = substr($rrules['BYDAY'], 0, 1);
-                  // $week_day = substr($rrules['BYDAY'], 1);
-                  // $day_cardinals = array(1 => 'first', 2 => 'second', 3 => 'third', 4 => 'fourth', 5 => 'fifth');
-                  // $weekdays = array('SU' => 'sunday','MO' => 'monday','TU' => 'tuesday','WE' => 'wednesday','TH' => 'thursday','FR' => 'friday','SA' => 'saturday');
-                  // while ($recurring_timestamp <= $until) {
-                  //   $event_start_desc = "{$day_cardinals[$day_number]} {$weekdays[$week_day]} of ".date('F',$recurring_timestamp)." ".date('Y',$recurring_timestamp)." ".date('H:i:s',$recurring_timestamp);
-                  //   $event_start_timestamp = strtotime($event_start_desc);
-                  //   if ($event_start_timestamp > $start_timestamp && $event_start_timestamp < $until) {
-                  //     $anEvent['DTSTART'] = date('Ymd\T',$event_start_timestamp).$start_time;
-                  //     $anEvent['DTEND'] = date('Ymd\THis',$this->iCalDateToUnixTimestamp($anEvent['DTSTART'])+$event_timestmap_offset);
-                  //     $events[] = $anEvent;
-                  //   }
+                  $start_time = date('His',$start_timestamp);
+                  // Deal with BYDAY
+                  $day_number = substr($rrules['BYDAY'], 0, 1);
+                  $week_day = substr($rrules['BYDAY'], 1);
+                  $day_cardinals = array(1 => 'first', 2 => 'second', 3 => 'third', 4 => 'fourth', 5 => 'fifth');
+                  $weekdays = array('SU' => 'sunday','MO' => 'monday','TU' => 'tuesday','WE' => 'wednesday','TH' => 'thursday','FR' => 'friday','SA' => 'saturday');
+                  while ($recurring_timestamp <= $until) {
+                    $event_start_desc = "{$day_cardinals[$day_number]} {$weekdays[$week_day]} of ".date('F',$recurring_timestamp)." ".date('Y',$recurring_timestamp)." ".date('H:i:s',$recurring_timestamp);
+                    $event_start_timestamp = strtotime($event_start_desc);
+                    if ($event_start_timestamp > $start_timestamp && $event_start_timestamp < $until) {
+                      $anEvent['DTSTART'] = date('Ymd\T',$event_start_timestamp).$start_time;
+                      $anEvent['DTEND'] = date('Ymd\THis',$this->iCalDateToUnixTimestamp($anEvent['DTSTART'])+$event_timestmap_offset);
+                      $events[] = $anEvent;
+                    }
                     // Move forward
-                    //$recurring_timestamp = strtotime($offset,$recurring_timestamp);
+                    $recurring_timestamp = strtotime($offset,$recurring_timestamp);
                   }
                 }
                 break;
