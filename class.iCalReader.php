@@ -109,7 +109,8 @@ class ICal
                     break; 
                 } 
             }
-            $this->process_recurrences();
+            //We don't want the recurring events, we create them ourselves
+            //$this->process_recurrences();
             return $this->cal; 
         }
     }
