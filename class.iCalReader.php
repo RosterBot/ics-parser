@@ -379,6 +379,17 @@ class ICal
     public function events() 
     {
         $array = $this->cal;
+
+        if ($array === null)
+        {
+            return $array;
+        }
+
+        if (!$array['VEVENT'])
+        {
+            return [];
+        }
+
         return $array['VEVENT'];
     }
 
