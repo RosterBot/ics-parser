@@ -55,7 +55,9 @@ class ICal
         if (!$contents) {
             return false;
         }
-        
+
+        $contents = ltrim($contents);
+
         $lines = explode("\n", $contents);
         $lines = array_filter($lines);
 
